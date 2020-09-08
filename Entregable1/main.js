@@ -11,6 +11,7 @@ resize();
 
 // last known position
 let pos = { x: 0, y: 0 };
+let color = 'black', grosor = 1;
 
 window.addEventListener('resize', resize);
 document.addEventListener('mousemove', draw);
@@ -35,9 +36,9 @@ function draw(e) {
 
   ctx.beginPath(); // begin
 
-  ctx.lineWidth = 5;
+  ctx.lineWidth = grosor;
   ctx.lineCap = 'round';
-  ctx.strokeStyle = '#c0392b';
+  ctx.strokeStyle = color;
 
   ctx.moveTo(pos.x, pos.y); // from
   setPosition(e);
@@ -65,4 +66,11 @@ function handleImage(e){
       img.src = event.target.result;
   }
   reader.readAsDataURL(e.target.files[0]);     
+}
+
+function setcolor(c) {
+  color = c;
+}
+function setgrosor(g) {
+  grosor=g;
 }
