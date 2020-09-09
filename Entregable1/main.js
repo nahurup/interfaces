@@ -74,3 +74,13 @@ function setcolor(c) {
 function setgrosor(g) {
   grosor=g;
 }
+
+function saveCanvas() {
+  let canva = document.querySelector("canvas");
+  let image = canva.toDataURL("image/png", 1.0)
+  .replace("image/png", "image/octet-stream");
+  let link = document.createElement("a");
+  link.download = "my-image.png";
+  link.href = image;
+  link.click();
+}
