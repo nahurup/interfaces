@@ -30,6 +30,10 @@ function resize() {
   ctx.canvas.height = window.innerHeight;
 }
 
+function setEraser() {
+  ctx.globalCompositeOperation = "destination-out";
+}
+
 function draw(e) {
   // mouse left button must be pressed
   if (e.buttons !== 1) return;
