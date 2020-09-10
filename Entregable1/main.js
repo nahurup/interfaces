@@ -126,15 +126,34 @@ function setSepia(context, canvas) {
   context.putImageData(imageData, 0, 0);
 }
 
-function setBrillo(context, canvas, brightness) {
+function setBrightness(context, canvas, brightness) {
   let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-  redrawImage(context, imageData);
   let pixels = imageData.data;
   for (let i = 0; i < pixels.length; i += 4) {
       pixels[i]   = pixels[i] + 255 * (brightness / 100);   // red
       pixels[i+1] = pixels[i+1] + 255 * (brightness / 100); // green
       pixels[i+2] = pixels[i+2] + 255 * (brightness / 100); // blue
       // i+3 is alpha
+  }
+    
+  context.putImageData(imageData, 0, 0);
+}
+
+function setBinarization(context, canvas) {
+  let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+  let pixels = imageData.data;
+  for (let i = 0; i < pixels.length; i += 4) {
+    if (pixels[i] <= 128) {
+      pixels[i]   = 0;   // red
+      pixels[i+1] = 0; // green
+      pixels[i+2] = 0; // blue
+      // i+3 is alpha
+    }else if(pixels[i] > 128) {
+      pixels[i]   = 255;   // red
+      pixels[i+1] = 255; // green
+      pixels[i+2] = 255; // blue
+      // i+3 is alpha
+    }
   }
     
   context.putImageData(imageData, 0, 0);
