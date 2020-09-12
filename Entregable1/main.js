@@ -30,6 +30,12 @@ function setPosition(e) {
   pos.y = e.clientY;
 }
 
+let pencil = document.querySelector("#pencil");
+pencil.addEventListener("click", setPencil);
+function setPencil() {
+  ctx.globalCompositeOperation = "source-over";
+}
+
 let eraser = document.querySelector("#eraser");
 eraser.addEventListener("click", setEraser);
 function setEraser() {
