@@ -33,12 +33,16 @@ function setPosition(e) {
 let pencil = document.querySelector("#pencil");
 pencil.addEventListener("click", setPencil);
 function setPencil() {
+  //Displays the source image over the destination image
   ctx.globalCompositeOperation = "source-over";
 }
 
 let eraser = document.querySelector("#eraser");
 eraser.addEventListener("click", setEraser);
 function setEraser() {
+  //Displays the destination image out of the source image. 
+  //Only the part of the destination image that is OUTSIDE the source image is shown, 
+  //and the source image is transparent
   ctx.globalCompositeOperation = "destination-out";
 }
 
