@@ -109,10 +109,10 @@ function setGrayscale() {
   let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   let pixels = imageData.data;
   for (let i = 0; i < pixels.length; i += 4) {
-      let grayscale = (pixels[i] + pixels[i+1] + pixels[i+2]) / 3;
-      pixels[i]   = 255 - grayscale;   // red
-      pixels[i+1] = 255 - grayscale; // green
-      pixels[i+2] = 255 - grayscale; // blue
+      let lightness = parseInt(pixels[i]*.299 + pixels[i + 1]*.587 + pixels[i + 2]*.114);
+      pixels[i]   = lightness;   // red
+      pixels[i+1] = lightness; // green
+      pixels[i+2] = lightness; // blue
       // i+3 is alpha
   }
     
@@ -188,7 +188,7 @@ function setNegative() {
 
 let kernels = {
   sharpen: [0, -1, 0, -1, 5, -1, 0, -1, 0],
-  blur: [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  blur: [0, .2, 0, .2, .2, .2, 0, .2, 0],
   edge: [0, 1, 0, 1, -4, 1, 0, 1, 0],
 };
 
