@@ -172,44 +172,66 @@ function setNegative(context, canvas) {
   context.putImageData(imageData, 0, 0);
 }
 
-//myContext.filter = 'blur(10px)';
+let matrices = [
+  {
+    name: 'mean removal (sharpen)',
+    data:
+     [[-1, -1, -1],
+      [-1,  9, -1],
+      [-1, -1, -1]]
+  },
+  {
+    name: 'sharpen',
+    data:
+     [[ 0, -2,  0],
+      [-2, 11, -2],
+      [ 0, -2,  0]]
+  },
+  {
+    name: 'blur',
+    data:
+     [[ 1,  2,  1],
+      [ 2,  4,  2],
+      [ 1,  2,  1]]
+  },
+  {
+    name: 'emboss',
+    data:
+     [[ 2,  0,  0],
+      [ 0, -1,  0],
+      [ 0,  0, -1]],
+    offset: 127,
+  },
+  {
+    name: 'emboss subtle',
+    data:
+     [[ 1,  1, -1],
+      [ 1,  3, -1],
+      [ 1, -1, -1]],
+  },
+  {
+    name: 'edge detect',
+    data:
+     [[ 1,  1,  1],
+      [ 1, -7,  1],
+      [ 1,  1,  1]],
+  },
+  {
+    name: 'edge detect 2',
+    data:
+     [[-5,  0,  0],
+      [ 0,  0,  0],
+      [ 0,  0,  5]],
+  }
+];
 
 let kernels = {
-  none: [0, 0, 0, 0, 1, 0, 0, 0, 0],
   sharpen: [0, -1, 0, -1, 5, -1, 0, -1, 0],
   sharpenless: [0, -1, 0, -1, 10, -1, 0, -1, 0],
   blur: [1, 1, 1, 1, 1, 1, 1, 1, 1],
-  blurGaussian: [
-    1, 4, 6, 4, 1,
-    4, 16, 24, 16, 4,
-    6, 24, 36, 24, 6,
-    4, 16, 24, 16, 4,
-    1, 4, 6, 4, 1
-  ],
   shadow: [1, 2, 1, 0, 1, 0, -1, -2, -1],
-  emboss: [-2, 1, 0, -1, 1, 1, 0, 1, 2],
   edge: [0, 1, 0, 1, -4, 1, 0, 1, 0],
 };
-
-function normalize(kernel) {
-  let len = kernel.length;
-  let normal = new Array(len);
-  let i,
-    sum = 0;
-  for (i = 0; i < len; ++i) {
-    sum += kernel[i];
-  }
-  if (sum <= 0) {
-    normal.normalized = false;
-    sum = 1;
-  } else {
-    normal.normalized = true;
-  }
-  for (i = 0; i < len; ++i) {
-    normal[i] = kernel[i] / sum;
-  }
-  return normal;
-}
 
 function convolve(context, kernel) {
   let canvas = context.canvas;
@@ -219,7 +241,7 @@ function convolve(context, kernel) {
   let size = Math.sqrt(kernel.length);
   let half = Math.floor(size / 2);
 
-  let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+  let inputData = context.getImageData(0, 0, width, height).data;
 
   let output = context.createImageData(width, height);
   let outputData = output.data;
@@ -243,10 +265,10 @@ function convolve(context, kernel) {
             Math.max(0, pixelX + kernelX - half)
           );
           let inputIndex = (neighborY * width + neighborX) * 4;
-          r += imageData[inputIndex] * weight;
-          g += imageData[inputIndex + 1] * weight;
-          b += imageData[inputIndex + 2] * weight;
-          a += imageData[inputIndex + 3] * weight;
+          r += inputData[inputIndex] * weight;
+          g += inputData[inputIndex + 1] * weight;
+          b += inputData[inputIndex + 2] * weight;
+          a += inputData[inputIndex + 3] * weight;
         }
       }
       let outputIndex = (pixelsAbove + pixelX) * 4;
@@ -258,4 +280,5 @@ function convolve(context, kernel) {
   }
   context.putImageData(output, 0, 0);
 }
+
 
