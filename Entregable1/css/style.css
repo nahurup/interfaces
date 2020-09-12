@@ -1,0 +1,18 @@
+.container-fluid {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+#canvas{
+  width: 100%;
+}
+
+.float{
+	position:fixed;
+	bottom:40px;
+	right:40px;
+}
+
+.uil-brightness {
+  background: url('https://api.iconify.design/uil-brightness.svg') no-repeat center center / contain;
+}

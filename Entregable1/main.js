@@ -2,8 +2,9 @@ let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext('2d');
 let inMemCanvas = document.createElement('canvas');
 let inMemCtx = inMemCanvas.getContext('2d');
+let imagetemp;
 
-let container = document.getElementById("container");
+let container = document.querySelector(".container-fluid");
 
 window.onresize = function () {
   inMemCanvas.width = container.clientWidth;
@@ -29,6 +30,8 @@ function setPosition(e) {
   pos.y = e.clientY;
 }
 
+let eraser = document.querySelector("#eraser");
+eraser.addEventListener("click", setEraser);
 function setEraser() {
   ctx.globalCompositeOperation = "destination-out";
 }
@@ -50,11 +53,10 @@ function draw(e) {
   ctx.stroke(); // draw it!
 }
 
-function clearCanvas(context) {
-  context.clearRect(0, 0, canvas.width, canvas.height);
-}
-function redrawImage(context, image) {
-  context.drawImage(image, 0, 0);
+let clear = document.querySelector("#clear");
+clear.addEventListener("click", clearCanvas);
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function scaleToFit(img){
@@ -73,6 +75,7 @@ function handleImage(e){
   let reader = new FileReader();
   reader.onload = function(event){
       let img = new Image();
+      imagetemp = img;
       img.onload = function(){
         scaleToFit(this);
       }
@@ -88,6 +91,8 @@ function setgrosor(g) {
   grosor=g;
 }
 
+let save = document.querySelector("#save");
+save.addEventListener("click", saveCanvas);
 function saveCanvas() {
   let canva = document.querySelector("canvas");
   let image = canva.toDataURL("image/png", 1.0)
@@ -98,8 +103,10 @@ function saveCanvas() {
   link.click();
 }
 
-function setGrayscale(context, canvas) {
-  let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+let grayscale = document.querySelector("#grayscale");
+grayscale.addEventListener("click", setGrayscale);
+function setGrayscale() {
+  let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   let pixels = imageData.data;
   for (let i = 0; i < pixels.length; i += 4) {
       let grayscale = (pixels[i] + pixels[i+1] + pixels[i+2]) / 3;
@@ -109,11 +116,13 @@ function setGrayscale(context, canvas) {
       // i+3 is alpha
   }
     
-  context.putImageData(imageData, 0, 0);
+  ctx.putImageData(imageData, 0, 0);
 }
 
-function setSepia(context, canvas) {
-  let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+let sepia = document.querySelector("#sepia");
+sepia.addEventListener("click", setSepia);
+function setSepia() {
+  let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   let pixels = imageData.data;
   for (let i = 0; i < pixels.length; i += 4) {
       let avg = pixels[i]*0.3 + pixels[i+1]*0.59 + pixels[i+2]*0.11;
@@ -123,11 +132,12 @@ function setSepia(context, canvas) {
       // i+3 is alpha
   }
     
-  context.putImageData(imageData, 0, 0);
+  ctx.putImageData(imageData, 0, 0);
 }
 
-function setBrightness(context, canvas, brightness) {
-  let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+function setBrightness(brightness) {
+  scaleToFit(imagetemp);
+  let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   let pixels = imageData.data;
   for (let i = 0; i < pixels.length; i += 4) {
       pixels[i]   = pixels[i] + 255 * (brightness / 100);   // red
@@ -136,11 +146,13 @@ function setBrightness(context, canvas, brightness) {
       // i+3 is alpha
   }
     
-  context.putImageData(imageData, 0, 0);
+  ctx.putImageData(imageData, 0, 0);
 }
 
-function setBinarization(context, canvas) {
-  let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+let binarization = document.querySelector("#binarization");
+binarization.addEventListener("click", setBinarization);
+function setBinarization() {
+  let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   let pixels = imageData.data;
   for (let i = 0; i < pixels.length; i += 4) {
     if (pixels[i] <= 128) {
@@ -156,11 +168,13 @@ function setBinarization(context, canvas) {
     }
   }
     
-  context.putImageData(imageData, 0, 0);
+  ctx.putImageData(imageData, 0, 0);
 }
 
-function setNegative(context, canvas) {
-  let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+let negative = document.querySelector("#negative");
+negative.addEventListener("click", setNegative);
+function setNegative() {
+  let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   let pixels = imageData.data;
   for (let i = 0; i < pixels.length; i += 4) {
       pixels[i]   = 255 - pixels[i];   // red
@@ -169,67 +183,12 @@ function setNegative(context, canvas) {
       // i+3 is alpha
   }
   
-  context.putImageData(imageData, 0, 0);
+  ctx.putImageData(imageData, 0, 0);
 }
-
-let matrices = [
-  {
-    name: 'mean removal (sharpen)',
-    data:
-     [[-1, -1, -1],
-      [-1,  9, -1],
-      [-1, -1, -1]]
-  },
-  {
-    name: 'sharpen',
-    data:
-     [[ 0, -2,  0],
-      [-2, 11, -2],
-      [ 0, -2,  0]]
-  },
-  {
-    name: 'blur',
-    data:
-     [[ 1,  2,  1],
-      [ 2,  4,  2],
-      [ 1,  2,  1]]
-  },
-  {
-    name: 'emboss',
-    data:
-     [[ 2,  0,  0],
-      [ 0, -1,  0],
-      [ 0,  0, -1]],
-    offset: 127,
-  },
-  {
-    name: 'emboss subtle',
-    data:
-     [[ 1,  1, -1],
-      [ 1,  3, -1],
-      [ 1, -1, -1]],
-  },
-  {
-    name: 'edge detect',
-    data:
-     [[ 1,  1,  1],
-      [ 1, -7,  1],
-      [ 1,  1,  1]],
-  },
-  {
-    name: 'edge detect 2',
-    data:
-     [[-5,  0,  0],
-      [ 0,  0,  0],
-      [ 0,  0,  5]],
-  }
-];
 
 let kernels = {
   sharpen: [0, -1, 0, -1, 5, -1, 0, -1, 0],
-  sharpenless: [0, -1, 0, -1, 10, -1, 0, -1, 0],
   blur: [1, 1, 1, 1, 1, 1, 1, 1, 1],
-  shadow: [1, 2, 1, 0, 1, 0, -1, -2, -1],
   edge: [0, 1, 0, 1, -4, 1, 0, 1, 0],
 };
 
@@ -281,4 +240,20 @@ function convolve(context, kernel) {
   context.putImageData(output, 0, 0);
 }
 
-
+let sharpen = document.querySelector("#sharpen");
+sharpen.onclick = function() {
+  convolve(ctx,kernels["sharpen"]);
+}
+let blur = document.querySelector("#blur");
+blur.onclick = function() {
+  convolve(ctx,kernels["blur"]);
+}
+let edge = document.querySelector("#edge");
+edge.onclick = function() {
+  convolve(ctx,kernels["edge"]);
+}
+let redraw = document.querySelector("#redraw ");
+redraw .onclick = function() {
+  clearCanvas();
+  scaleToFit(imagetemp);
+}

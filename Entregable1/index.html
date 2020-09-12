@@ -1,21 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entregable1</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Entregable1</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
 </head>
+
 <body>
-    <label>Image File:</label><br/>
-    <input type="file" id="imageLoader" name="imageLoader"/>
-    <input type="color" id="color" oninput="setcolor(this.value);">
-    <input type="range" id="grosor" oninput="setgrosor(this.value);" min="1" max="75" value="1">
-    <div id="container">
-        <canvas id="canvas" width="900" height="600" style="border:#000 solid 1px;"/>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Tools</div>
+      <div class="list-group list-group-flush">
+        <input class="list-group-item list-group-item-action bg-light" type="file" id="imageLoader" name="imageLoader"/>
+        <div class="list-group-item list-group-item-action bg-light">
+            <input type="color" id="color" oninput="setcolor(this.value);">
+            <input type="range" id="grosor" oninput="setgrosor(this.value);" min="1" max="75" value="1">
+        </div>
+        <div class="list-group-item list-group-item-action bg-light">
+            <button id="eraser" class="btn btn-secondary btn-sm"><i class="fa fa-eraser"></i></button>
+        </div>
+        <div class="list-group-item list-group-item-action bg-light">
+            <button id="save" class="btn btn-secondary btn-sm"><i class="fa fa-save"></i></button>
+            <button id="clear" class="btn btn-secondary btn-sm"><i class="fa fa-sticky-note"></i></button>
+        </div>
+        <div class="list-group-item list-group-item-action bg-light">
+            <h6>Filtros simples</h6>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" id="grayscale" class="btn btn-secondary">Escala de grises</button>
+                <button type="button" id="sepia" class="btn btn-secondary">Sepia</button>
+            </div>
+            <br>
+            <br>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" id="binarization" class="btn btn-secondary">Binarizacion</button>
+                <button type="button" id="negative" class="btn btn-secondary">Negativo</button>
+            </div>
+            <br>
+            <label for="brillo">Brillo</label>
+            <input type="range" id="rangobrillo" oninput="setBrightness(this.value);" min="1" max="100" value="1">
+        </div>
+        <div class="list-group-item list-group-item-action bg-light">
+            <h6>Filtros avanzados</h6>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" id="sharpen" class="btn btn-secondary">Sharpen</button>
+                <button type="button" id="blur" class="btn btn-secondary">Blur</button>
+                <button type="button" id="edge" class="btn btn-secondary">Edge</button>
+            </div>
+            <button id="redraw" class="btn btn-success">Limpiar</button>
+        </div>
+        
+      </div>
     </div>
-    
-    
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <button class="btn btn-primary float" id="menu-toggle">Tools</button>
+        <div class="container-fluid">
+            <canvas id="canvas" width="900" height="600" style="border:#000 solid 1px;"/>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+  <script src="main.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
 </body>
-<script src="main.js"></script>
+
 </html>
