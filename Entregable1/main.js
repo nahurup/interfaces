@@ -6,7 +6,9 @@ let imagetemp;
 
 let container = document.querySelector(".container-fluid");
 
-window.onresize = function resizeCanvas() {
+
+
+function resizeCanvas() {
   inMemCanvas.width = container.clientWidth;
   inMemCanvas.height = container .clientHeight;
   inMemCtx.drawImage(canvas, 0, 0);
@@ -14,6 +16,10 @@ window.onresize = function resizeCanvas() {
   canvas.height = container .clientHeight;
   ctx.drawImage(inMemCanvas, 0, 0);
 }
+
+window.addEventListener('resize', function(event){
+  resizeCanvas()
+});
 
 
 // last known position
