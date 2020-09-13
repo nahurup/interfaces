@@ -3,6 +3,7 @@ let ctx = canvas.getContext('2d');
 let inMemCanvas = document.createElement('canvas');
 let inMemCtx = inMemCanvas.getContext('2d');
 let imagetemp;
+let imagencargada = false;
 
 let container = document.querySelector(".container-fluid");
 
@@ -74,6 +75,7 @@ let clear = document.querySelector("#clear");
 clear.addEventListener("click", clearCanvas);
 function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  imagencargada = false;
 }
 
 function scaleToFit(img){
@@ -95,6 +97,7 @@ function handleImage(e){
       imagetemp = img;
       img.onload = function(){
         scaleToFit(this);
+        imagencargada = true;
       }
       img.src = event.target.result;
   }
@@ -153,17 +156,19 @@ function setSepia() {
 }
 
 function setBrightness(brightness) {
-  scaleToFit(imagetemp);
-  let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  let pixels = imageData.data;
-  for (let i = 0; i < pixels.length; i += 4) {
-      pixels[i]   = pixels[i] + 255 * (brightness / 100);   // red
-      pixels[i+1] = pixels[i+1] + 255 * (brightness / 100); // green
-      pixels[i+2] = pixels[i+2] + 255 * (brightness / 100); // blue
-      // i+3 is alpha
-  }
+  if (imagencargada == true) {
+    scaleToFit(imagetemp);
+    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let pixels = imageData.data;
+    for (let i = 0; i < pixels.length; i += 4) {
+        pixels[i]   = pixels[i] + 255 * (brightness / 100);   // red
+        pixels[i+1] = pixels[i+1] + 255 * (brightness / 100); // green
+        pixels[i+2] = pixels[i+2] + 255 * (brightness / 100); // blue
+        // i+3 is alpha
+    }
     
-  ctx.putImageData(imageData, 0, 0);
+    ctx.putImageData(imageData, 0, 0);
+  }
 }
 
 let binarization = document.querySelector("#binarization");
@@ -271,6 +276,6 @@ edge.onclick = function() {
 }
 let redraw = document.querySelector("#redraw ");
 redraw .onclick = function() {
-  clearCanvas();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   scaleToFit(imagetemp);
 }
