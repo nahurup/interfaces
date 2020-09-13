@@ -6,7 +6,7 @@ let imagetemp;
 
 let container = document.querySelector(".container-fluid");
 
-window.onresize = function () {
+window.onresize = function resizeCanvas() {
   inMemCanvas.width = container.clientWidth;
   inMemCanvas.height = container .clientHeight;
   inMemCtx.drawImage(canvas, 0, 0);
@@ -26,8 +26,9 @@ document.addEventListener('mousedown', setPosition);
 document.addEventListener('mouseenter', setPosition);
 
 function setPosition(e) {
-  pos.x = e.clientX;
-  pos.y = e.clientY;
+  let ClientRect = canvas.getBoundingClientRect();
+  pos.x = Math.round(e.clientX - ClientRect.left);
+  pos.y = Math.round(e.clientY - ClientRect.top);
 }
 
 let pencil = document.querySelector("#pencil");
