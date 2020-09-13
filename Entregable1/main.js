@@ -276,6 +276,8 @@ edge.onclick = function() {
 }
 let redraw = document.querySelector("#redraw ");
 redraw .onclick = function() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  scaleToFit(imagetemp);
+  if (imagencargada == true) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    scaleToFit(imagetemp);
+  }
 }
