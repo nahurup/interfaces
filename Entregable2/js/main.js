@@ -5,7 +5,12 @@ const GRID_ROWS = 6;
 const MARGIN = 0.02; //fraccion de el tamaño mas corto de pantalla
 
 const COLOR_BACKGROUND = "mintcream";
+const COLOR_COMP = "red";
+const COLOR_COMP_DARk = "darkred";
 const COLOR_FRAME = "dodgerblue";
+const COLOR_FRAME_BUTT = "royalblue";
+const COLOR_PLAY = "yellow";
+const COLOR_PLAY_DRK = "olive";
 
 class Cell {
   constructor(left, top, w, h, row, col) {
@@ -60,11 +65,12 @@ class Cell {
 let canv = document.getElementById("canvasMain");
 let ctx = canv.getContext("2d");
 
-let grid = [];
+let gameove, grid = [], playersTurn;
 
 let height, width, margin;
 setDimensions();
 
+canv.addEventListener("mousemove", highlightGrid);
 window.addEventListener("resize", setDimensions);
 
 //loop
@@ -83,6 +89,7 @@ function loop(timeNow) {
 
   //
   drawBackground();
+  drawGrid();
 
   //call the next frame
   requestAnimationFrame(loop);
@@ -124,7 +131,62 @@ function drawBackground() {
   ctx.fillRect(0, 0, width, height);
 }
 
+function drawGrid() {
+  let cell = grid[0][0];
+  let fh = cell.h * GRID_ROWS;
+  let fw = cell.w * GRID_COLS;
+  ctx.fillStyle = COLOR_FRAME;
+  ctx.fillRect(cell.left, cell.top, fw, fh);
+  ctx.fillStyle = COLOR_FRAME_BUTT;
+  ctx.fillRect(cell.left - margin / 2, cell.top + fh - margin / 2, fw + margin, margin);
+
+  // cells
+  for (let row of grid) {
+      for (let cell of row) {
+          cell.draw(ctx);
+      }
+  }
+}
+
+function highlightCell(x, y) {
+  let col = null;
+  for (let row of grid) {
+      for (let cell of row) {
+
+          //clear
+          cell.highlight = null;
+
+          if (cell.contains(x, y)) {
+              col = cell.col;
+          }
+      }
+  }
+
+  if (col == null) {
+      return;
+  }
+
+  for (let i = GRID_ROWS - 1; i >= 0; i--) {
+      if (grid[i][col].owner == null) {
+          grid[i][col].highlight = playersTurn;
+          return grid[i][col];
+      }
+  }
+  return null;
+}
+
+function highlightGrid(e) {
+  if (!playersTurn || gameOver) {
+      return;
+  }
+  highlightCell(e.clientX, e.clientY);
+}
+
+
 function newGame() {
+  playersTurn = Math.random() < 0.5;
+  gameOver = false;
+  gameTied = false;
   createGrid();
 }
 
