@@ -6,11 +6,19 @@ const MARGIN = 0.02; //fraccion de el tamaño mas corto de pantalla
 
 const COLOR_BACKGROUND = "mintcream";
 const COLOR_COMP = "red";
-const COLOR_COMP_DARk = "darkred";
+const COLOR_COMP_DRK = "darkred";
 const COLOR_FRAME = "dodgerblue";
 const COLOR_FRAME_BUTT = "royalblue";
 const COLOR_PLAY = "yellow";
 const COLOR_PLAY_DRK = "olive";
+const COLOR_TIE = "darkgrey";
+const COLOR_TIE_DRK = "black";
+const COLOR_WIN = "black";
+
+const TEXT_COMP = "Computer";
+const TEXT_PLAY = "Player";
+const TEXT_TIE = "DRAW";
+const TEXT_WIN = "WINS!";
 
 class Cell {
   constructor(left, top, w, h, row, col) {
@@ -65,11 +73,12 @@ class Cell {
 let canv = document.getElementById("canvasMain");
 let ctx = canv.getContext("2d");
 
-let gameove, grid = [], playersTurn;
+let gameove, gameTied, grid = [], playersTurn;
 
 let height, width, margin;
 setDimensions();
 
+canv.addEventListener("click", click);
 canv.addEventListener("mousemove", highlightGrid);
 window.addEventListener("resize", setDimensions);
 
@@ -94,6 +103,82 @@ function loop(timeNow) {
   //call the next frame
   requestAnimationFrame(loop);
 }
+
+function checkWin(row, col) {
+    let diagL = [], diagR = [], horiz = [], vert = [];
+    for (let i = 0; i < GRID_ROWS; i++) {
+        for (let j = 0; j < GRID_COLS; j++) {
+            
+            // horizontal
+            if (i == row) {
+                horiz.push(grid[i][j]);
+            }
+
+            // vertical
+            if (j == col) {
+                vert.push(grid[i][j]);
+            }
+
+            // top left to bottom right
+            if (i - j == row - col) {
+                diagL.push(grid[i][j]);
+            }
+
+            // top right to bottom left
+            if (i + j == row + col) {
+                diagR.push(grid[i][j]);
+            }
+        }
+    }
+
+    return connect4(diagL) || connect4(diagR) || connect4(horiz) || connect4(vert);
+}
+
+function connect4(cells = []) {
+    let count = 0, lasOwner = null;
+    let winningCells = [];
+    for (let i = 0; i < cells.length; i++) {
+        //resetear
+        if (cells[i].owner == null) {
+            count = 0;
+            winningCells = [];
+        }
+
+        else if (cells[i].owner == lasOwner) {
+            count++;
+            winningCells.push(cells[i]);
+        }
+
+        else {
+            count = 1;
+            winningCells = [];
+            winningCells.push(cells[i]);
+        }
+
+        lasOwner = cells[i].owner;
+
+        if (count == 4) {
+            for (let cell of winningCells) {
+                cell.winner = true;
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+function click(e) {
+  if (gameOver) {
+      newGame();
+      return;
+  }
+  if (!playersTurn) {
+      return;
+  }
+
+  selectCell();
+}
+
 
 function createGrid() {
   grid = [];
@@ -148,6 +233,8 @@ function drawGrid() {
   }
 }
 
+
+
 function highlightCell(x, y) {
   let col = null;
   for (let row of grid) {
@@ -188,6 +275,64 @@ function newGame() {
   gameOver = false;
   gameTied = false;
   createGrid();
+}
+
+function selectCell() {
+  let highlighting = false;
+  OUTER: for (let row of grid) {
+      for (let cell of row) {
+          if (cell.highlight != null) {
+              highlighting = true;
+              cell.highlight = null;
+              cell.owner = playersTurn;
+              if (checkWin(cell.row, cell.col)) {
+                  gameOver = true;
+              }
+              break OUTER;
+          }
+      }
+  }
+
+  if (!highlighting) {
+      return;
+  }
+
+  //empate
+  if (!gameOver) {
+      gameTied = true;
+      OUTER: for (let row of grid) {
+          for (let cell of row) {
+              if (cell.owner == null) {
+                  gameTied = false;
+                  break OUTER;
+              }
+          }
+      }
+
+      if(gameTied) {
+          gameOver = true;
+      }
+  }
+
+  if (!gameOver) {
+      gameTied = true;
+      OUTER: for (let row of grid) {
+          for (let cell of row) {
+              if (cell.owner == null) {
+                  gameTied = false;
+                  break OUTER;
+              }
+          }
+      }
+
+      if (gameTied) {
+          gameOver = true;
+      }
+  }
+
+  if (!gameOver) {
+      playersTurn = !playersTurn;
+  }
 }
 
 function setDimensions() {
