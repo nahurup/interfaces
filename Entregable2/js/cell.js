@@ -1,10 +1,10 @@
 class Cell {
-    constructor(canvas, ctx, player,id) {
+    constructor(canvas, ctx, player, pNumber) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.player = player;
         this.radio = 30;
-        this.id = id;
+        this.pNumber = pNumber;
         this.imgURL=setIMG(player);
         this.color = "rgb(29, 29, 29)";
     }
