@@ -1,0 +1,20 @@
+#grid{
+    position: absolute;
+    width: 75vw;
+    height: 75vw;
+    max-width: 30em;
+    max-height: 30em;
+    display: block;
+    cursor: pointer;
+    background: transparent;
+    transform: translateY(-100%);
+}
+
+#canvas{
+    display: block;
+    position: relative;
+    width: 75vw;
+    height: 75vw;
+    max-width: 30em;
+    max-height: 30em;
+}
