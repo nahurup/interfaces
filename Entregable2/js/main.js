@@ -137,9 +137,8 @@ function throwCell(x, y, yMax) {
   img.src = cellColor;
   ctx.drawImage(img,x-35,y,70,70);
   ctx.stroke();
-
   if (y !== yMax) {
-    y += 10;
+    y += 5;
     setTimeout('throwCell(' + x + ',' + y + ', ' + yMax + ')', 1);
   }
   return;
@@ -154,25 +153,22 @@ function highlightWCells(){
       ctxGrid.arc(x*cell+halfCell, y*cell+cell+halfCell, 35, 0, Math.PI * 2, true);
       ctxGrid.lineWidth = 8;
       ctxGrid.strokeStyle = "#66FF33";
-      ctxGrid.fillStyle = color;
-      ctxGrid.fill();
+      ctx.drawImage(img,x-35,y,70,70);
       ctxGrid.stroke();
       ctxGrid.closePath();
   }
 }
 
 grid.addEventListener('click', function (evt) {
-  ctxGrid.beginPath();
-  ctxGrid.fillStyle = "white";
-  ctxGrid.fillRect(0,0,cell*7, cell);
-  ctxGrid.stroke();
+  let yMax;
   let mousePos = getMousePos(evt);
   for (let i = 0; i < grid.width; i += cell) {
     if (mousePos.x > i && mousePos.x < i + cell) {
       if(matriz[i/100][0] !== undefined) break;
       let topeY = fillCol(i/100) + 1;
       changeTurn();
-      throwCell(i + halfCell, halfCell, topeY * cell + halfCell);
+      yMax = (topeY * cell + halfCell)-35;
+      throwCell(i + halfCell, halfCell, yMax);
       grid.style.pointerEvents = 'none';
       if(!checkWin(i/100, topeY-1)){
         setTimeout(function(){ 
