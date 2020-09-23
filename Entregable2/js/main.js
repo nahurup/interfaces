@@ -23,9 +23,21 @@ for(let i = 0; i < 7; i++){
   matriz[i] = new Array(6);
 }
 
-ctxGrid.fillStyle = "#3867d6";
-ctxGrid.fillRect(0, cell, grid.width, grid.height);
-ctxGrid.stroke();
+let imgBackground = new Image();
+imgBackground.onload=start;
+imgBackground.onerror=function(){alert(imgBackground.src+' failed');} 
+imgBackground.src="./img/imgB2.png";
+function start(){
+  ctxGrid.drawImage(imgBackground, 0, cell, grid.width, grid.height);
+  for (let y = 100; y < 700; y += cell) {
+    for (let x = 0; x < 700; x += cell) {
+      clearCircle(x + halfCell, y + halfCell, 35);
+    }
+  }
+  
+  ctxGrid.globalCompositeOperation = 'source-over';
+}
+
 
 function clearCircle(x, y, radius) {
   ctxGrid.globalCompositeOperation = 'destination-out';
@@ -34,13 +46,7 @@ function clearCircle(x, y, radius) {
   ctxGrid.closePath();
 }
 
-for (let y = 100; y < 700; y += cell) {
-  for (let x = 0; x < 700; x += cell) {
-    clearCircle(x + halfCell, y + halfCell, 35);
-  }
-}
 
-ctxGrid.globalCompositeOperation = 'source-over';
 
 function getMousePos(evt) {
   let mouseX = evt.offsetX * canvas.width / canvas.clientWidth;
