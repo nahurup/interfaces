@@ -2,6 +2,9 @@ let canvas = document.querySelector("#canvas");
 let ctx = canvas.getContext('2d');
 let grid = document.querySelector("#grid");
 let ctxGrid = grid.getContext('2d');
+let display = document.querySelector("#display-status");
+let optionsBtn = document.querySelector("#opciones");
+optionsBtn.addEventListener('click', begin);
 
 let dx=[ 1,-1, 0, 0, 1,-1, 1,-1];
 let dy=[ 0, 0, 1,-1,-1, 1, 1,-1];
@@ -30,51 +33,6 @@ function clearCircle(x, y, radius) {
   ctxGrid.closePath();
 }
 
-let imgBackground = new Image();
-imgBackground.onload=start;
-imgBackground.onerror=function(){alert(imgBackground.src+' failed');} 
-imgBackground.src="./img/imgB2.png";
-function start(){
-  ctxGrid.drawImage(imgBackground, 0, cell, grid.width, grid.height);
-  for (let y = 100; y < 700; y += cell) {
-    for (let x = 0; x < 700; x += cell) {
-      clearCircle(x + halfCell, y + halfCell, 35);
-    }
-  }
-  
-  ctxGrid.globalCompositeOperation = 'source-over';
-}
-
-
-function getMousePos(evt) {
-  let mouseX = evt.offsetX * canvas.width / canvas.clientWidth;
-  let mouseY = evt.offsetY * canvas.height / canvas.clientHeight;
-  return {
-    x: mouseX,
-    y: mouseY
-  };
-}
-
-document.querySelector("#grid").onmousemove = function(event) {
-  efectoHover(event)
-  function efectoHover(event) {
-    //muestro imagen contraria al turno
-    if (turn == 1) {
-      cellColor = "./img/img2.png";
-    }else if (turn == 2) {
-      cellColor = "./img/img1.png";
-    }
-    let mousePos = getMousePos(event);
-    let x = parseInt(mousePos.x/100);
-    ctxGrid.beginPath();
-    ctxGrid.fillStyle = "white";
-    ctxGrid.fillRect(0,0,cell*7, cell);
-    ctxGrid.stroke();
-    img.src = cellColor;
-    ctxGrid.drawImage(img,(x*cell+ halfCell)-35,halfCell-30,70,70);
-  }
-}
-
 function efectoHover(event) {
   //muestro imagen contraria al turno
   if (turn == 1) {
@@ -90,6 +48,16 @@ function efectoHover(event) {
   ctxGrid.stroke();
   img.src = cellColor;
   ctxGrid.drawImage(img,(x*cell+ halfCell)-35,halfCell-30,70,70);
+}
+
+
+function getMousePos(evt) {
+  let mouseX = evt.offsetX * canvas.width / canvas.clientWidth;
+  let mouseY = evt.offsetY * canvas.height / canvas.clientHeight;
+  return {
+    x: mouseX,
+    y: mouseY
+  };
 }
 
 function fillCol(numCol){
@@ -146,11 +114,30 @@ function changeColor(){
   }
 }
 
+function colorDisplay(turn) {
+  if (turn == 2) {
+    setTimeout(function(){ 
+      display.innerHTML = "Jugando: Jugador 1";
+      display.classList.add('p1');
+      display.classList.remove('p2');
+    }, 1000);
+  }else if (turn == 1) {
+    setTimeout(function(){ 
+      display.innerHTML = "Jugando: Jugador 2";
+      display.classList.add('p2');
+      display.classList.remove('p1');
+    }, 1000);
+  }
+  console.log("se ejecuto")
+}
+
 function changeTurn(){
   if (turn == 1) {
       turn = 2;
+      colorDisplay(turn);
   }else if (turn == 2) {
       turn = 1;
+      colorDisplay(turn);
   }
   changeColor();
 }
@@ -183,33 +170,69 @@ function highlightWCells(){
   }
 }
 
-grid.addEventListener('click', function (evt) {
-  let yMax;
-  let mousePos = getMousePos(evt);
-  //evito cambiar el color mientras la ficha esta cayendo
-  document.querySelector("#grid").onmousemove = function () {
-    console.log("no cambia el color");
-  }
-  for (let i = 0; i < grid.width; i += cell) {
-    if (mousePos.x > i && mousePos.x < i + cell) {
-      if(matriz[i/100][0] !== undefined) break;
-      let topeY = fillCol(i/100) + 1;
-      changeTurn();
-      yMax = (topeY * cell + halfCell)-35;
-      throwCell(i + halfCell, halfCell, yMax);
-      grid.style.pointerEvents = 'none';
-      if(!checkWin(i/100, topeY-1)){
-        setTimeout(function(){ 
-          grid.style.pointerEvents = 'auto';
-        }, 500);
-        setTimeout(function(){ 
-          document.querySelector("#grid").onmousemove = function (event) {
-          efectoHover(event);
-        } }, 1000);
-        
-      } else{
-        highlightWCells();
+function begin() {
+  display.innerHTML = "Jugando: Jugador 1";
+  display.classList.add('p1');
+  display.classList.remove('navbar-brand');
+  let imgBackground = new Image();
+  imgBackground.onload=start;
+  imgBackground.onerror=function(){alert(imgBackground.src+' failed');} 
+  imgBackground.src="./img/imgB2.png";
+  function start(){
+    ctxGrid.drawImage(imgBackground, 0, cell, grid.width, grid.height);
+    for (let y = 100; y < 700; y += cell) {
+      for (let x = 0; x < 700; x += cell) {
+        clearCircle(x + halfCell, y + halfCell, 35);
       }
     }
+    
+    ctxGrid.globalCompositeOperation = 'source-over';
   }
-});
+
+  document.querySelector("#grid").onmousemove = function(event) {
+    efectoHover(event);
+  }
+
+  //cambiar boton
+  optionsBtn.addEventListener('click', function () {
+    location.reload();
+  });
+  optionsBtn.innerHTML = "Reiniciar";
+
+  grid.addEventListener('click', function (evt) {
+    let yMax;
+    let mousePos = getMousePos(evt);
+    ctxGrid.beginPath();
+    ctxGrid.fillStyle = "white";
+    ctxGrid.fillRect(0,0,cell*7, cell);
+    ctxGrid.stroke();
+    //evito cambiar el color mientras la ficha esta cayendo
+    document.querySelector("#grid").onmousemove = function () {
+      console.log("no cambia el color");
+    }
+    for (let i = 0; i < grid.width; i += cell) {
+      if (mousePos.x > i && mousePos.x < i + cell) {
+        if(matriz[i/100][0] !== undefined) break;
+        let topeY = fillCol(i/100) + 1;
+        changeTurn();
+        yMax = (topeY * cell + halfCell)-35;
+        throwCell(i + halfCell, halfCell, yMax);
+        grid.style.pointerEvents = 'none';
+        if(!checkWin(i/100, topeY-1)){
+          setTimeout(function(){ 
+            grid.style.pointerEvents = 'auto';
+          }, 500);
+          setTimeout(function(){ 
+            document.querySelector("#grid").onmousemove = function (event) {
+            efectoHover(event);
+          } }, 1000);
+          
+        } else{
+          highlightWCells();
+          
+        }
+      }
+    }
+  });
+  
+}

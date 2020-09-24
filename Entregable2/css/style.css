@@ -7,6 +7,32 @@
     transform: translate(-50%, -50%);
 }
 
+.bg-blue {
+    background-color: #43668a!important;
+}
+
+.p1 {
+    display: inline-block;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+    color: #e44e4e;
+}
+
+.p2 {
+    display: inline-block;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+    color: #22ce49;
+}
+
 #grid{
     position: absolute;
     width: 75vw;
