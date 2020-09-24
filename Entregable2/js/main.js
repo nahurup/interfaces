@@ -23,6 +23,13 @@ for(let i = 0; i < 7; i++){
   matriz[i] = new Array(6);
 }
 
+function clearCircle(x, y, radius) {
+  ctxGrid.globalCompositeOperation = 'destination-out';
+  ctxGrid.arc(x, y, radius, 0, Math.PI * 2, true);
+  ctxGrid.fill();
+  ctxGrid.closePath();
+}
+
 let imgBackground = new Image();
 imgBackground.onload=start;
 imgBackground.onerror=function(){alert(imgBackground.src+' failed');} 
@@ -39,15 +46,6 @@ function start(){
 }
 
 
-function clearCircle(x, y, radius) {
-  ctxGrid.globalCompositeOperation = 'destination-out';
-  ctxGrid.arc(x, y, radius, 0, Math.PI * 2, true);
-  ctxGrid.fill();
-  ctxGrid.closePath();
-}
-
-
-
 function getMousePos(evt) {
   let mouseX = evt.offsetX * canvas.width / canvas.clientWidth;
   let mouseY = evt.offsetY * canvas.height / canvas.clientHeight;
@@ -57,7 +55,27 @@ function getMousePos(evt) {
   };
 }
 
-function efectoHover(event){
+document.querySelector("#grid").onmousemove = function(event) {
+  efectoHover(event)
+  function efectoHover(event) {
+    //muestro imagen contraria al turno
+    if (turn == 1) {
+      cellColor = "./img/img2.png";
+    }else if (turn == 2) {
+      cellColor = "./img/img1.png";
+    }
+    let mousePos = getMousePos(event);
+    let x = parseInt(mousePos.x/100);
+    ctxGrid.beginPath();
+    ctxGrid.fillStyle = "white";
+    ctxGrid.fillRect(0,0,cell*7, cell);
+    ctxGrid.stroke();
+    img.src = cellColor;
+    ctxGrid.drawImage(img,(x*cell+ halfCell)-35,halfCell-30,70,70);
+  }
+}
+
+function efectoHover(event) {
   //muestro imagen contraria al turno
   if (turn == 1) {
     cellColor = "./img/img2.png";
@@ -168,6 +186,10 @@ function highlightWCells(){
 grid.addEventListener('click', function (evt) {
   let yMax;
   let mousePos = getMousePos(evt);
+  //evito cambiar el color mientras la ficha esta cayendo
+  document.querySelector("#grid").onmousemove = function () {
+    console.log("no cambia el color");
+  }
   for (let i = 0; i < grid.width; i += cell) {
     if (mousePos.x > i && mousePos.x < i + cell) {
       if(matriz[i/100][0] !== undefined) break;
@@ -180,6 +202,11 @@ grid.addEventListener('click', function (evt) {
         setTimeout(function(){ 
           grid.style.pointerEvents = 'auto';
         }, 500);
+        setTimeout(function(){ 
+          document.querySelector("#grid").onmousemove = function (event) {
+          efectoHover(event);
+        } }, 1000);
+        
       } else{
         highlightWCells();
       }
