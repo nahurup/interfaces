@@ -115,20 +115,22 @@ function changeColor(){
 }
 
 function colorDisplay(turn) {
-  if (turn == 2) {
-    setTimeout(function(){ 
-      display.innerHTML = "Jugando: Jugador 1";
-      display.classList.add('p1');
-      display.classList.remove('p2');
-    }, 1000);
-  }else if (turn == 1) {
-    setTimeout(function(){ 
-      display.innerHTML = "Jugando: Jugador 2";
-      display.classList.add('p2');
-      display.classList.remove('p1');
-    }, 1000);
+  if (display != undefined) {
+    if (turn == 2) {
+      setTimeout(function(){ 
+        display.innerHTML = "Jugando: Jugador 1";
+        display.classList.add('p1');
+        display.classList.remove('p2');
+      }, 1000);
+    }else if (turn == 1) {
+      setTimeout(function(){ 
+        display.innerHTML = "Jugando: Jugador 2";
+        display.classList.add('p2');
+        display.classList.remove('p1');
+      }, 1000);
+    }
+    console.log("se ejecuto")
   }
-  console.log("se ejecuto")
 }
 
 function changeTurn(){
@@ -229,7 +231,8 @@ function begin() {
           
         } else{
           highlightWCells();
-          
+          display.innerHTML = "Gano el Jugador "+turn;
+          display = undefined;
         }
       }
     }
