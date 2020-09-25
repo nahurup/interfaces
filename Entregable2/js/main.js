@@ -129,7 +129,6 @@ function colorDisplay(turn) {
         display.classList.remove('p1');
       }, 1000);
     }
-    console.log("se ejecuto")
   }
 }
 
