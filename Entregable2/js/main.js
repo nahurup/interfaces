@@ -200,9 +200,12 @@ function begin() {
   });
   optionsBtn.innerHTML = "Reiniciar";
 
-  grid.addEventListener('click', function (evt) {
+  grid.addEventListener('click', tryThrow);
+
+  function tryThrow(evt) {
     let yMax;
     let mousePos = getMousePos(evt);
+    grid.removeEventListener('click', tryThrow);
     ctxGrid.beginPath();
     ctxGrid.fillStyle = "white";
     ctxGrid.fillRect(0,0,cell*7, cell);
@@ -226,15 +229,17 @@ function begin() {
           setTimeout(function(){ 
             document.querySelector("#grid").onmousemove = function (event) {
             efectoHover(event);
-          } }, 1000);
+            }
+            grid.addEventListener('click', tryThrow);
+          }, 1000);
           
         } else{
           highlightWCells();
-          display.innerHTML = "Gano el Jugador "+turn;
+          display.innerHTML = "Ganó el Jugador "+turn;
           display = undefined;
         }
       }
     }
-  });
+  }
   
 }
