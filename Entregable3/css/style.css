@@ -1,3 +1,7 @@
+body {
+  background-color: #041718;
+}
+
 header {
   padding: 156px 0 100px;
 }
@@ -5,3 +9,87 @@ header {
 section {
   padding: 150px 0;
 }
+
+.site-container {
+  margin: 15px;
+  box-shadow: 0 0 12px 6px #ad67b4;
+  background-color: #ffffff;
+}
+
+body::-webkit-scrollbar {
+  width: 12px;
+}
+body::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #ad67b4;
+  background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,.3) 20%,transparent 20%,transparent 40%,rgba(255, 255, 255, 0.3) 40%,rgba(255,255,255,.3) 60%,transparent 60%,transparent 80%,rgba(255, 255, 255, 0.3) 80%);
+  border-radius: 10px;
+}
+
+@-webkit-keyframes STAR-MOVE {
+	from {
+		background-position: 5% 5%
+	}
+	to { 
+		background-position: 1300% 600%
+	}
+}
+
+#background {
+	background: black url(../img/background.png) repeat 5% 5%;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	z-index: 100;
+	
+	-webkit-animation-name: STAR-MOVE;
+	-webkit-animation-duration: 200s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+}
+
+#midground {
+	background: url(../img/midground.png) repeat 20% 20%;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	z-index: 200;
+	
+	-webkit-animation-name: STAR-MOVE;
+	-webkit-animation-duration: 150s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+}
+
+#foreground {
+	background: url(../img/foreground.png) repeat 35% 35%;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	z-index: 300;
+	
+	-webkit-animation-name: STAR-MOVE;
+	-webkit-animation-duration: 100s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+}
+
+ /* Styles for the tilt block */
+ #tilt {
+  display: block;
+  height: 214px;
+  width: 600px;
+  margin: 0 auto;
+  transition: box-shadow 0.1s, transform 0.1s;
+  background-image: url(../img/scoobylogo.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 400;;
+ }
+ 
+ #tilt:hover {
+   box-shadow: 0px 0px 30px rgba(0,0,0, 0.6);
+   cursor: pointer;
+ }
+ 
