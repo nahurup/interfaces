@@ -45,7 +45,7 @@ body::-webkit-scrollbar-thumb {
 	z-index: 100;
 	
 	-webkit-animation-name: STAR-MOVE;
-	-webkit-animation-duration: 200s;
+	-webkit-animation-duration: 400s;
 	-webkit-animation-timing-function: linear;
 	-webkit-animation-iteration-count: infinite;
 }
