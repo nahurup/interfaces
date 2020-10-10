@@ -1,24 +1,24 @@
 $(document).ready(function() {
 
   //window and animation items
-  var animation_elements = $.find('.animation-element');
-  var web_window = $(window);
+  let animation_elements = $.find('.animation-element');
+  let web_window = $(window);
 
   //check to see if any animation containers are currently in view
   function check_if_in_view() {
     //get current window information
-    var window_height = web_window.height();
-    var window_top_position = web_window.scrollTop();
-    var window_bottom_position = (window_top_position + window_height);
+    let window_height = web_window.height();
+    let window_top_position = web_window.scrollTop();
+    let window_bottom_position = (window_top_position + window_height);
 
     //iterate through elements to see if its in view
     $.each(animation_elements, function() {
 
       //get the element sinformation
-      var element = $(this);
-      var element_height = $(element).outerHeight();
-      var element_top_position = $(element).offset().top;
-      var element_bottom_position = (element_top_position + element_height);
+      let element = $(this);
+      let element_height = $(element).outerHeight();
+      let element_top_position = $(element).offset().top;
+      let element_bottom_position = (element_top_position + element_height);
 
       //check to see if this current container is visible (its viewable if it exists between the viewable space of the viewport)
       if ((element_bottom_position >= window_top_position) && (element_top_position <= window_bottom_position)) {
@@ -127,3 +127,27 @@ el.addEventListener('mousedown', function() {
 el.addEventListener('mouseup', function() {
   el.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
 })
+
+//countdown
+let fechaLimite = new Date("Dec 15, 2020 19:30:00").getTime();
+
+let x = setInterval(function() {
+
+  let now = new Date().getTime();
+
+  let distance = fechaLimite - now;
+
+  let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("countdown").innerHTML = "Premiere in " + days + " days and " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown").innerHTML = "CURRENTLY IN THEATERS!";
+  }
+}, 1000);
