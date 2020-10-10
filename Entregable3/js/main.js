@@ -152,3 +152,9 @@ let x = setInterval(function() {
   }
 }, 1000);
 
+let botonmenu = document.getElementById("botonmenu");
+botonmenu.onclick = function(){
+  botonmenu.classList.remove("pulsar");
+  botonmenu.classList.add("boton-girar");
+  setTimeout(function(){ botonmenu.classList.remove("boton-girar"); }, 1000);
+};

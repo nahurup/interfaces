@@ -12,7 +12,11 @@ section {
 
 .site-container {
   margin: 15px;
-  background-color: #ffffff;
+}
+
+.content-container {
+    background-color: #ffffff;
+    padding-top: 10px;
 }
 
 body::-webkit-scrollbar {
@@ -48,6 +52,54 @@ body::-webkit-scrollbar-thumb {
   justify-content: space-between;
   padding: .5rem 1rem;
 }
+
+.navbar-dark .navbar-toggler {
+  color: rgba(255,255,255,.5);
+  border: none;
+}
+
+.navbar-toggler-icon-scooby {
+  display: inline-block;
+  width: 2.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: no-repeat center center;
+  background-size: 100% 100%;
+  background-image: url(../img/icon-menu.png);
+}
+
+.pulsar {
+	transform: scale(1);
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 1px 2px rgba(201,68,210,0.15)
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 2.5px 7px rgba(201,68,210,0.7)
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 5px 15px rgba(201,68,210,0.5)
+	}
+}
+
+.boton-girar{
+  -webkit-animation:spin 1s linear;
+  -moz-animation:spin 1s linear;
+  animation:spin 1s linear;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 .navbar-image {
   width: 100%;
@@ -184,4 +236,46 @@ a-countdown {
   background-color: transparent;
   text-shadow: 2px 2px #ad67b4;
 }
+
+.card {
+  vertical-align: middle;
+  max-width: 600px;
+  max-height: 500px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 10px 10px 10px 10px;
+  text-align: center;
+  border-radius: 15px;
+  transition: 0.5s;
+  position: relative;
+  background-color: #fff0;
+}
+
+.card img {
+  height: 440px;
+}
+
+.card h3 {
+  position: absolute;
+  bottom: 0;
+  color: #fced08;
+  text-shadow: 2px 2px #f4984f;
+  padding: 10px;
+}
+
+.card:hover{
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 5px 10px 20px #888888;
+  transform: scale(1.10) translateZ(0);
+  transition: 0.5s;
+}
+
+.personajes, .estreno {
+  display: flex;
+  align-content: space-between;
+  justify-content: space-between;
+}
+
+
 
