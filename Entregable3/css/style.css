@@ -49,6 +49,13 @@ body::-webkit-scrollbar-thumb {
   padding: .5rem 1rem;
 }
 
+.navbar-image {
+  width: 100%;
+  bottom: 0px;
+  height: 69%;
+  position: relative;
+}
+
 .navbar-collapse {
   position: fixed;
   top: 0;
@@ -77,6 +84,9 @@ body::-webkit-scrollbar-thumb {
   -o-transition: left 0.3s ease-in;
   -moz-transition: left 0.3s ease-in;
   transition: left 0.3s ease-in;
+}
+.nav-item {
+  font-size: 42px;
 }
 
 
