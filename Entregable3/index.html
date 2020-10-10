@@ -30,13 +30,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+              <a class="nav-link js-scroll-trigger" href="#home">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#personajes">Personajes</a>
+              <a class="nav-link js-scroll-trigger" href="#events">Events</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+              <a class="nav-link js-scroll-trigger" href="#comments">Comments</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
@@ -54,7 +54,7 @@
       </div>
     </nav>
 
-    <section id="hero" style="position: relative;">
+    <section id="home" style="position: relative;">
       <div class="container">
         <div id="background"></div>
         <div id="midground"></div>
@@ -62,9 +62,46 @@
       </div>
       <div id="tilt"></div>
     </section>
+    <section id="home">
+      <div class="container">
+        <div id="slider">
+          <input type="radio" id="slide1" name="slider" checked/>
+          <input type="radio" id="slide2" name="slider" />
+          <input type="radio" id="slide3" name="slider" />
+          <input type="radio" id="slide4" name="slider" />
+          <input type="radio" id="slide5" name="slider" />
+          
+          <div id="slides">
+            <div id="overflow">
+              <div class="inner">
+                <div class="page"><img src="../img/img1.jpg" alt="" /></div>
+                <div class="page"><img src="../img/img2.jpg" alt="" /></div>
+                <div class="page"><img src="../img/img3.png" alt="" /></div>
+                <div class="page"><img src="../img/img4.jpg" alt="" /></div>
+                <div class="page"><img src="../img/img5.png" alt="" /></div>
+              </div>
+            </div>
+            <div id="controls">
+            <label for="slide1"></label>
+            <label for="slide2"></label>
+            <label for="slide3"></label>
+            <label for="slide4"></label>
+            <label for="slide5"></label>
+          </div>
+          <div id="active">
+            <label for="slide1"></label>
+            <label for="slide2"></label>
+            <label for="slide3"></label>
+            <label for="slide4"></label>
+            <label for="slide5"></label>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
     
 
-    <section id="about">
+    <section id="events">
       <div class="animation-element slide-up content-container">
         <div class="row">
           <div class="col-lg-8 mx-auto">
@@ -85,7 +122,7 @@
       </div>
     </section>
 
-    <section id="personajes">
+    <section id="comments">
       <div class="container">
         <div class="personajes animation-element slide-up">
           <div class="card">

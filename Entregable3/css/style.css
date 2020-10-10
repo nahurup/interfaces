@@ -7,7 +7,7 @@ header {
 }
 
 section {
-  padding: 150px 0;
+  padding: 75px 0;
 }
 
 .site-container {
@@ -302,6 +302,115 @@ a-countdown {
   align-content: space-between;
   justify-content: space-between;
 }
+
+body {padding: 20px 0;}
+
+#slider {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+#slides {
+  background: #fced08;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.inner {width: 500%;}
+.inner:after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.page {float: left; width: 20%;}
+.page img {
+  width: 100%;
+  height: 550px;
+}
+
+#overflow {overflow: hidden;}
+
+#slider input {display: none;}
+
+#controls {
+   position: absolute;
+   width:100%;
+   top: 120px;
+   left: 0;
+   height: 50px;
+}
+#controls label {
+  display: none;
+  opacity: 0.3;
+  cursor: pointer;
+}
+#controls label:hover {opacity: 0.8;}
+#slide1:checked ~ #controls label:nth-child(2),
+#slide2:checked ~ #controls label:nth-child(3),
+#slide3:checked ~ #controls label:nth-child(4),
+#slide4:checked ~ #controls label:nth-child(5),
+#slide5:checked ~ #controls label:nth-child(1) {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-left: 20px solid #333;
+  border-bottom: 20px solid transparent;
+  float: right; 
+  margin-right:-30px; 
+  display: block;
+}
+
+#slide1:checked ~ #controls label:nth-child(5),
+#slide2:checked ~ #controls label:nth-child(1),
+#slide3:checked ~ #controls label:nth-child(2),
+#slide4:checked ~ #controls label:nth-child(3),
+#slide5:checked ~ #controls label:nth-child(4) {
+	width: 0;
+	height: 0;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+    border-right: 20px solid  rgb(51, 51, 51);
+    float: left;	
+	  display: block;
+    margin-left: -27px;
+	}
+
+#slide1:checked ~ #slides .inner { margin-left:0;} 
+#slide2:checked ~ #slides .inner { margin-left:-100%;} 
+#slide3:checked ~ #slides .inner { margin-left:-200%;} 
+#slide4:checked ~ #slides .inner { margin-left:-300%;} 
+#slide5:checked ~ #slides .inner { margin-left:-400%;} 
+
+#active {text-align: center; margin-top: 10px;}
+#active label {
+  width: 15px;
+  height: 10px;
+  background: #f49c4b;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+} 
+
+#active label:hover {background:#8c4484;}
+
+#slide1:checked ~ #active label:nth-child(1),
+#slide2:checked ~ #active label:nth-child(2),
+#slide3:checked ~ #active label:nth-child(3),
+#slide4:checked ~ #active label:nth-child(4),
+#slide5:checked ~ #active label:nth-child(5) { background: #6f2791;}
+
+#slides .inner {
+  -webkit-transition: all 0.8s ease-in-out;
+     -moz-transition: all 0.8s ease-in-out;
+      -ms-transition: all 0.8s ease-in-out;
+       -o-transition: all 0.8s ease-in-out;
+          transition: all 0.8s ease-in-out;
+}
+
 
 
 
