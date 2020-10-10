@@ -151,3 +151,4 @@ let x = setInterval(function() {
     document.getElementById("countdown").innerHTML = "CURRENTLY IN THEATERS!";
   }
 }, 1000);
+
