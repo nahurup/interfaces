@@ -17,6 +17,14 @@ section {
 .content-container {
     background-color: #ffffff;
     padding-top: 10px;
+    width: 85%;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+
+.content-relacionados {
+  margin: 0 auto;
+  padding: 10px;
 }
 
 body::-webkit-scrollbar {
@@ -261,6 +269,7 @@ a-countdown {
   text-decoration: none;
   background-color: transparent;
   text-shadow: 2px 2px #ad67b4;
+  font-weight: bold;
 }
 
 .card {
@@ -275,6 +284,7 @@ a-countdown {
   transition: 0.5s;
   position: relative;
   background-color: #fff0;
+  border: none;
 }
 
 .card img {
@@ -411,6 +421,62 @@ body {padding: 20px 0;}
           transition: all 0.8s ease-in-out;
 }
 
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  background-color: whitesmoke;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  text-align: center;
+  position: relative;
+}
+
+.texto-panel {
+  position: absolute;
+  padding: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  text-shadow: rgb(241 35 255) 1px 0 10px;
+}
+
+.imagen-panel {
+	width: 100%;
+}
+
+.imagen-panel:hover {
+	transform: scale(1);
+	animation: pulse 2s infinite;
+}
+
+.accordion:after {
+  content: '\02795';
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796";
+}
 
 
 
