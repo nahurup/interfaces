@@ -39,17 +39,22 @@
               <a class="nav-link js-scroll-trigger" href="#comments">Comments</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+              <a class="nav-link js-scroll-trigger" href="#">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#">Forum</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#">Youtube</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#">Twitter</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#">Facebook</a>
             </li>
           </ul>
-          <div class="navbar-image">
-            <img src="../img/menu-image.png" style="
-              width: 100%;
-              position: absolute;
-              left: 0;
-              bottom: 0;
-            ">
-          </div>
+          <div class="navbar-image"></div>
         </div>
       </div>
     </nav>
@@ -183,41 +188,40 @@
       </div>          
     </section>
 
-    <section id="comments">
-
-    </section>
-
-    <section id="services" class="bg-light">
-      <div class="content-container">
+    <section id="comments" class="comments">
+      <div class="animation-element slide-up content-container">
         <div class="row">
-          <div class="col-lg-8 mx-auto">
-            <h2>Services we offer</h2>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>
+          <div class="content-comentarios">
+            <h4>Deja tu comentario:</h4>
+            <form action="">
+              <div class="input-field">
+                <input type="email" id="email" required />
+                <label for="email">Email:</label>
+              </div>
+            </form>
+            <form action="">
+              <div class="input-field">
+                <input type="text" id="name" required />
+                <label for="name">Nombre:</label>
+              </div>
+            </form>
+            <form action="">
+              <div class="input-field">
+                <input type="text" id="comentario" required />
+                <label for="comentario">Comentario:</label>
+              </div>
+            </form>
+            <div class="boton">
+              <div id="botonr" class="boton-progreso">
+                <span id="progressbutton">Enviar</span>
+              </div>
+          </div>
           </div>
         </div>
-      </div>
+      </div>    
     </section>
 
-    <section id="contact">
-      <div class="content-container">
-        <div class="row">
-          <div class="col-lg-8 mx-auto">
-            <h2>Contact us</h2>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
+    
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

@@ -173,3 +173,16 @@ for (i = 0; i < acc.length; i++) {
     }
   });
 }
+
+let botonr = document.querySelector("#botonr");
+let button = document.querySelector("#progressbutton");
+button.onclick = function() {
+    button.innerHTML = " ";
+    button.classList.add('progressbutton');
+    botonr.classList.add('boton-radius');
+    setTimeout(function(){ 
+      button.innerHTML = "Enviado!"; 
+      button.classList.remove('progressbutton');
+      botonr.classList.remove('boton-radius');
+    }, 3000);
+};
