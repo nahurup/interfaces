@@ -285,20 +285,20 @@ body::-webkit-scrollbar-thumb {
   -webkit-transition: all 500ms linear;
   -o-transition: all 500ms linear;
   transition: all 500ms linear;
-  -moz-transform: translate3d(100px, 0px, 0px);
-  -webkit-transform: translate3d(100px, 0px, 0px);
+  -moz-transform: translateX(150px);
+  -webkit-transform: translateX(150px);
   -o-transform: translate(0px, 100px);
   -ms-transform: translate(0px, 100px);
-  transform: translate3d(100px, 0px, 0px);
+  transform: translateX(150px);
 }
 
 .animation-element.slide-left.in-view {
   opacity: 1;
-  -moz-transform: translate3d(0px, 0px, 0px);
-  -webkit-transform: translate3d(0px, 0px, 0px);
+  -moz-transform: translateX(0px);
+  -webkit-transform: translateX(0px);
   -o-transform: translate(0px, 0px);
   -ms-transform: translate(0px, 0px);
-  transform: translate3d(0px, 0px, 0px);
+  transform: translateX(0px);
 }
 
 .animation-element.slide-up {
@@ -366,10 +366,18 @@ a-countdown {
   transition: 1.5s;
 }
 
-.personajes, .estreno {
+.container-personajes {
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.personajes {
   display: flex;
   align-content: space-between;
   justify-content: space-between;
+  position: relative;
+  left: -95%;
 }
 
 #slider {

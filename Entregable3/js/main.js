@@ -37,6 +37,23 @@ $(document).ready(function() {
     //trigger our scroll event on initial load
   $(window).trigger('scroll');
 
+  //on scroll
+  let $personajes = $('.personajes');
+  let startPosition = $personajes.position().left;
+  let speed = 0;
+  if(web_window.height() <= 768) {
+    speed = 50;
+  }else if(web_window.height() > 768) {
+    speed = 90;
+  }
+  $(window).scroll(function () {
+      let st = $(this).scrollTop();
+      let newPos = (st * (speed/100)) + startPosition;
+      $personajes.css({
+          'left': newPos
+      });
+  });
+
 });
 
 (function($) {
@@ -45,7 +62,7 @@ $(document).ready(function() {
   // Smooth scrolling using jQuery easing
   $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash);
+      let target = $(this.hash);
       target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
       if (target.length) {
         $('html, body').animate({
@@ -56,11 +73,6 @@ $(document).ready(function() {
     }
   });
 
-  // Closes responsive menu when a scroll trigger link is clicked
-  $('.js-scroll-trigger').click(function() {
-    $('.navbar-collapse').collapse('hide');
-  });
-
   // Activate scrollspy to add active class to navbar items on scroll
   $('body').scrollspy({
     target: '#mainNav',
@@ -69,27 +81,17 @@ $(document).ready(function() {
 
 })(jQuery); // End of use strict
 
-/* Store the element in el */
+
 let el = document.getElementById('tilt')
 
 /* Get the height and width of the element */
 const height = el.clientHeight
 const width = el.clientWidth
 
-/*
-  * Add a listener for mousemove event
-  * Which will trigger function 'handleMove'
-  * On mousemove
-  */
 el.addEventListener('mousemove', handleMove)
 
 /* Define function a */
 function handleMove(e) {
-  /*
-    * Get position of mouse cursor
-    * With respect to the element
-    * On mouseover
-    */
   /* Store the x position */
   const xVal = e.layerX
   /* Store the y position */
