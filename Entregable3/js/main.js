@@ -42,7 +42,7 @@ $(document).ready(function() {
   let startPosition = $personajes.position().left;
   let speed = 0;
   if(web_window.height() <= 768) {
-    speed = 50;
+    speed = 55;
   }else if(web_window.height() > 768) {
     speed = 90;
   }
