@@ -361,7 +361,9 @@ a-countdown {
 .card:hover{
   cursor: pointer;
   border-radius: 15px;
-  box-shadow: 5px 10px 20px #888888;
+  -webkit-box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.75);
+  box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.75);
   transform: rotateY(360deg);
   transition: 1.5s;
 }
@@ -378,6 +380,7 @@ a-countdown {
   justify-content: space-between;
   position: relative;
   left: -95%;
+  padding: 15px;
 }
 
 #slider {
