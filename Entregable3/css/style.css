@@ -210,7 +210,7 @@ body::-webkit-scrollbar-thumb {
 
 
 .bg-halloween {
-  background-color: #011918;
+  background-color: #0c1010;
 }
 
 #background {
@@ -424,6 +424,7 @@ a-countdown {
   opacity: 0.3;
   cursor: pointer;
 }
+
 #controls label:hover {opacity: 0.8;}
 #slide1:checked ~ #controls label:nth-child(2),
 #slide2:checked ~ #controls label:nth-child(3),
@@ -461,7 +462,7 @@ a-countdown {
 #slide4:checked ~ #slides .inner { margin-left:-300%;} 
 #slide5:checked ~ #slides .inner { margin-left:-400%;} 
 
-#active {text-align: center; margin-top: 10px;}
+#active {text-align: center; margin-top: 10px; height: 15px;}
 #active label {
   width: 15px;
   height: 10px;
@@ -479,7 +480,7 @@ a-countdown {
 #slide2:checked ~ #active label:nth-child(2),
 #slide3:checked ~ #active label:nth-child(3),
 #slide4:checked ~ #active label:nth-child(4),
-#slide5:checked ~ #active label:nth-child(5) { background: #6f2791;}
+#slide5:checked ~ #active label:nth-child(5) { background: #8c4484;}
 
 #slides .inner {
   -webkit-transition: all 0.8s ease-in-out;
