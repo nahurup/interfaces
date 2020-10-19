@@ -187,6 +187,9 @@ button.onclick = function() {
       button.classList.remove('progressbutton');
       botonr.classList.remove('boton-radius');
     }, 3000);
+    setTimeout(function(){ 
+      button.innerHTML = "Enviar";
+    }, 5000);
 };
 
 document.onreadystatechange = setTimeout(function () {
